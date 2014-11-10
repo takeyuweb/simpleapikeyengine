@@ -1,4 +1,4 @@
-simple_api_key_engine
+simpleapikeyengine
 =====================
 
 Simple API Key Engine.

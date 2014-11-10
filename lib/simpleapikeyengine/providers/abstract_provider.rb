@@ -1,3 +1,5 @@
+require 'simpleapikeyengine/provider_configuration'
+
 module SimpleApiKeyEngine::Providers
   class AbstractProvider
     class << self
@@ -12,10 +14,6 @@ module SimpleApiKeyEngine::Providers
 
       def acceptable?(auth_hash)
         raise NotImplementedError
-      end
-
-      def decorate_auth_hash(auth_hash)
-        auth_hash
       end
     end
 

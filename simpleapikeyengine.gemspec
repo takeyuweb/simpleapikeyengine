@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ['uzuki05@takeyu-web.com']
   s.homepage    = 'https://github.com/takeyuweb/simpleapikeyengine'
   s.summary     = 'Simple API Key Engine.'
-  s.description = 'Simple API Key Engine.'
+  s.description = '(Description for simpleapikeyengine)'
   s.license     = 'MIT'
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]

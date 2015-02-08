@@ -12,13 +12,14 @@ module SimpleApiKeyEngine::Providers
         end
       end
 
-      def acceptable?(auth_hash)
+      def acceptable?(request)
         raise NotImplementedError
       end
     end
 
-    def initialize(params)
-      @params = params
+    def initialize(request)
+      @request = request
+      @params = request.params
     end
 
     def auth(&block)
@@ -32,6 +33,7 @@ module SimpleApiKeyEngine::Providers
       authentication.token = auth_hash[:credentials][:token]
       authentication.auth_hash = auth_hash
       authentication.save!
+      after_authentication(authentication)
       return authentication
     end
 
@@ -53,6 +55,10 @@ module SimpleApiKeyEngine::Providers
       #     }
       # }
       raise NotImplementedError
+    end
+
+    def after_authentication(authentication)
+      true
     end
 
   end

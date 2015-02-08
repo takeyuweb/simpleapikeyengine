@@ -3,12 +3,12 @@ module SimpleApiKeyEngine
     store :auth_hash
 
     class << self
-      def auth(auth_hash, &block)
-        get_provider(auth_hash).auth(&block)
+      def auth(request, &block)
+        get_provider(request).auth(&block)
       end
 
-      def activate(auth_hash, &block)
-        authentication = auth(auth_hash, &block)
+      def activate(request, &block)
+        authentication = auth(request, &block)
         return nil unless authentication
         SimpleApiKeyEngine::ApiKey.create!(user_type: authentication.user_type,
                                            user_ident: authentication.user_ident)
@@ -22,12 +22,12 @@ module SimpleApiKeyEngine
       end
 
       private
-      def get_provider(auth_hash)
+      def get_provider(request)
         provider_class = provider_classes.find do |klass|
-          klass.acceptable? auth_hash
+          klass.acceptable? request
         end
         raise 'Unknown authentication provider' unless provider_class
-        provider_class.new auth_hash
+        provider_class.new request
       end
     end
 

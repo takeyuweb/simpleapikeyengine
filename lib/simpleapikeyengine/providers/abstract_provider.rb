@@ -31,6 +31,8 @@ module SimpleApiKeyEngine::Providers
         authentication.user = block.call(auth_hash)
       end
       authentication.token = auth_hash[:credentials][:token]
+      authentication.expires_at = auth_hash[:credentials][:expires] ?
+        Time.at(auth_hash[:credentials][:expires_at]) : nil
       authentication.auth_hash = auth_hash
       authentication.save!
       after_authentication(authentication)

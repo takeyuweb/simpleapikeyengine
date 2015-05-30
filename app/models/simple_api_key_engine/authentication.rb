@@ -1,5 +1,6 @@
 module SimpleApiKeyEngine
   class Authentication < ActiveRecord::Base
+    has_many :api_keys, class_name: 'SimpleApiKeyEngine::ApiKey', dependent: :destroy
     store :auth_hash
 
     class << self
@@ -10,9 +11,9 @@ module SimpleApiKeyEngine
       def activate(request, &block)
         authentication = auth(request, &block)
         return nil unless authentication
-        SimpleApiKeyEngine::ApiKey.create!(provider: authentication.provider,
-                                           user_type: authentication.user_type,
-                                           user_ident: authentication.user_ident)
+        authentication.api_keys.create!(provider: authentication.provider,
+                                        user_type: authentication.user_type,
+                                        user_ident: authentication.user_ident)
       end
 
       private

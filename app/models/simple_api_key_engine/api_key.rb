@@ -1,5 +1,6 @@
 module SimpleApiKeyEngine
   class ApiKey < ActiveRecord::Base
+    belongs_to :authentication, class_name: 'SimpleApiKeyEngine::Authentication'
     before_create :generate_token
     before_create :set_expiration
 

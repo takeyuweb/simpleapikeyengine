@@ -10,7 +10,8 @@ module SimpleApiKeyEngine
       def activate(request, &block)
         authentication = auth(request, &block)
         return nil unless authentication
-        SimpleApiKeyEngine::ApiKey.create!(user_type: authentication.user_type,
+        SimpleApiKeyEngine::ApiKey.create!(provider: authentication.provider,
+                                           user_type: authentication.user_type,
                                            user_ident: authentication.user_ident)
       end
 
